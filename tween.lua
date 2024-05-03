@@ -1,6 +1,6 @@
 -- custom tween
 
-local Signal = loadstring(game:HttpGet('https://paste.gg/p/anonymous/1eb714dd403c4d49992f5e70e0c207ad/files/8883e2a8d3ab475b815c0c6da86fcdb6/raw'))();
+local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/JuixyV2/utils/main/signal.lua'))();
 
 local render = game:GetService("RunService").RenderStepped
 local sqrt, sin, pi, halfpi, doublepi = math.sqrt, math.sin, math.pi, math.pi / 2, math.pi * 2
