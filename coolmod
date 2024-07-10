@@ -1,8 +1,7 @@
 -- settings (so u dont have to scroll)
--- deadcell mod by juixy :
 local settings = {
-    folder_name = "china"; -- stupid shit
-    default_accent = Color3.fromRGB(61, 100, 227); -- also stupid shit
+    folder_name = "wireless"; -- stupid shit
+    default_accent = Color3.fromRGB(227, 61, 144); -- also stupid shit
 };
 
 local drawing = loadstring(game:HttpGet("https://github.com/GhostDuckyy/UI-Libraries/blob/main/DEADCELL%20REMAKE/misc/extension.lua?raw=true"))();
@@ -19,21 +18,29 @@ end;
 local images = {
     ['gradient90'] = "https://raw.githubusercontent.com/portallol/luna/main/Gradient.png";
     ['gradient180'] = "https://raw.githubusercontent.com/portallol/luna/main/Gradient180.png";
-    ['arrow_down'] = "https://i.imgur.com/tVqy0nL.png";
-    ['arrow_up'] = "https://i.imgur.com/SL9cbQp.png";
-    ['icontest'] = "https://i.imgur.com/FcQwaYQ.png",
-    ['combat'] = "https://i.imgur.com/FcQwaYQ.png",
-    ['visuals'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icons8-group-48%20(1).png",
+    ['arrow_down'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/arrow2.png";
+    ['arrow_up'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/arrow1.png";
+    ['combat'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icon1.png",
+    ['visuals'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icon5.png",
     ['world'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icons8-sun-100.png",
     ['misc'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icons8-categorize-100.png",
-    ['settings'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icons8-cog-100%20(1).png",
+    ['settings'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icon3.png",
     ['skins'] = "https://raw.githubusercontent.com/JuixyV2/utils/main/icons8-knife-64.png"
 }
-for i,v in next, images do
-    if not isfile(settings.folder_name..'/assets/'..i..'.ln') then
-        writefile(settings.folder_name..'/assets/'..i..'.ln', bxor:encrypt(game:HttpGet(v), "4XGudgFuutoHUM2Ctwsq4YrQ"))
+for i, v in next, images do
+    local file_path = settings.folder_name .. '/assets/' .. i .. '.ln'
+    if not isfile(file_path) then
+        local success, result = pcall(function()
+            return game:HttpGet(v)
+        end)
+        if success then
+            writefile(file_path, bxor:encrypt(result, "4XGudgFuutoHUddM2Ctwsq4YrQ"))
+            wait(1)  -- Adding a delay of 1 second between requests
+        else
+            warn("Failed to fetch image: " .. v)
+        end
     end
-    images[i] = bxor:decrypt(readfile(settings.folder_name..'/assets/'..i..'.ln'), "4XGudgFuutoHUM2Ctwsq4YrQ")
+    images[i] = bxor:decrypt(readfile(file_path), "4XGudgFuutoHUddM2Ctwsq4YrQ")
 end
 
 local services = setmetatable({}, {
@@ -42,8 +49,6 @@ local services = setmetatable({}, {
         return game:GetService(k)
     end
 })
-
-local client = services.Players.LocalPlayer
 
 local utility = {}
 local totalunnamedflags = 0
@@ -3075,6 +3080,4 @@ function library:new_window(cfg)
     --
     return window_tbl;
 end;
-
-
 return library;
