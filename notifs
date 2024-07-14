@@ -1,0 +1,81 @@
+local Notify = {
+    Notifications = {}
+}
+
+function Lerp(start, finish, t)
+    t = t or 1 / 8
+
+    return start * (1 - t) + finish * t
+end
+
+function NewDrawing(type, props)
+    local Object = Drawing.new(type)
+
+    for _,v in next, props do
+        Object[_] = v
+    end
+
+    return Object
+end
+
+-- add custom shit if you want
+function Notify:Create(text, time)
+    local NotificationTable = {
+        Text = text,
+        Time = os.clock() + time,
+        Lerp = 2,
+        Offset = 2,
+        Object = NewDrawing("Text", {
+            Visible = false,
+            Font = 3,
+            Size = 16,
+            Outline = true,
+            Color = Color3.fromRGB(255, 255, 255)
+        })
+    }
+
+    table.insert(Notify.Notifications, NotificationTable)
+end
+
+function Notify:Think()
+    local YOffset = 0
+    local Position = Vector2.new(10, 50)
+
+    for _,v in next, Notify.Notifications do
+        if os.clock() >= v.Time then
+            v.Lerp = Lerp(v.Lerp, 0, 1 / 12)
+        else
+            v.Lerp = Lerp(v.Lerp, 255, 1 / 12)
+            v.Offset = Lerp(v.Offset, 255, 1 / 12)
+        end
+
+        local Object = v.Object
+
+        Object.Visible = true
+        Object.Transparency = v.Lerp / 255
+        Object.Text = v.Text
+
+        -- the reason why im doing this textbounds thing is, i want to do hot fade
+        Object.Position = Vector2.new(Position.X, Position.Y + YOffset) - Vector2.new(Object.TextBounds.X - (Object.TextBounds.X * (v.Lerp / 255)), 0)
+
+        YOffset += (Object.TextBounds.Y + 3) * (v.Offset / 255)
+
+        -- i do this gay shit here for like the effect to go up
+        if v.Lerp <= 1 then
+            v.Offset = Lerp(v.Offset, 0, 1 / 12)
+        end
+
+        if v.Offset <= 1 then
+            v.Object:Remove()
+
+            table.remove(Notify.Notifications, _)
+        end
+    end
+end
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    Notify:Think()
+end)
+
+return Notify
+-- <3 ofic
