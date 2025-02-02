@@ -1141,6 +1141,7 @@ Library.Sections.__index = Library.Sections;
 			--
 			local ScreenGui = Instance.new('ScreenGui', game.CoreGui)
 			local Outline = Instance.new('Frame', ScreenGui)
+			local Glow = Instance.new('ImageLabel', Outline)
 			local Inline = Instance.new('Frame', Outline)
 			local Accent = Instance.new('Frame', Inline)
 			local HolderOutline = Instance.new('Frame', Inline)
@@ -1159,6 +1160,15 @@ Library.Sections.__index = Library.Sections;
 			Outline.BorderColor3 = Color3.new(0.0392,0.0392,0.0392)
 			Outline.AnchorPoint = Vector2.new(0.5,0.5)
 			Library.Holder = Outline
+			--
+			Glow.Name = "Glow"
+			Glow.Position = UDim2.new(0.5, 0, 0.5, 0)
+			Glow.Size = UDim2.new(0, Window.Size.X.Offset * 1.1, 0, Window.Size.Y.Offset * 1.1) 
+			Glow.BackgroundTransparency = 1
+			Glow.ImageColor3 = Library.Accent
+			Glow.BorderColor3 = Color3.new(0.0392, 0.0392, 0.0392)
+			Glow.AnchorPoint = Vector2.new(0.5, 0.5)
+			Glow.Image = "http://www.roblox.com/asset/?id=4996891970"
 			--
 			Inline.Name = "Inline"
 			Inline.Position = UDim2.new(0,1,0,1)
@@ -3400,5 +3410,9 @@ Library.Sections.__index = Library.Sections;
 			NewButton.TextStrokeTransparency = 0
 			NewButton.TextStrokeColor3 = Color3.new(0,0,0)
 		end
+
+
+
+
         return Library
 	end
