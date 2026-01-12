@@ -3363,9 +3363,9 @@ do
 				Items["Logo"] = Instances:Create("ImageLabel", {
 					Parent = Items["Inline"].Instance,
 					Name = "\0",
-					ImageColor3 = FromRGB(255, 0, 0),
+					ImageColor3 = FromRGB(255, 255, 255),
 					BorderColor3 = FromRGB(0, 0, 0),
-					Image = "rbxassetid://121644323941494",
+					Image = Window.Logo,
 					BackgroundTransparency = 1,
 					Position = UDim2New(0, 8, 0, 10),
 					Size = UDim2New(0, 18, 0, 18),
@@ -5388,7 +5388,7 @@ do
 end
 
 
--- local Window = Library:Window({Name = "Window", Logo = "90363697817722"})
+-- local Window = Library:Window({Name = "Window", Logo = "rbxassetid://90363697817722"})
 -- local Watermark = Library:Watermark("This is a watermark")
 -- local KeybindList = Library:KeybindList()
 
