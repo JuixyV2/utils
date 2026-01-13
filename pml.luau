@@ -1820,7 +1820,7 @@ do
 
 			local KeyListItem
 			if Library.KeyList then
-				KeyListItem = Library.KeyList:Add("", "")
+				KeyListItem = Library.KeyList:Add("", "", "")
 			end
 
 			local Items = {}
@@ -2089,7 +2089,7 @@ do
 
 			local Update = function()
 				if KeyListItem then
-					KeyListItem:SetText(Data.Name, Keybind.Value)
+					KeyListItem:SetText(Data.Name, Keybind.Value, Keybind.Mode)
 					KeyListItem:SetStatus(Keybind.Toggled)
 				end
 			end
@@ -2678,14 +2678,14 @@ do
 				Items["KeybindList"].Instance.Visible = Bool
 			end
 
-			function KeybindList:Add(Name, Key)
+			function KeybindList:Add(Name, Key, Mode)
 				local NewKey = Instances:Create("TextLabel", {
 					Parent = Items["Content"].Instance,
 					Name = "\0",
 					FontFace = Library.Font,
 					TextColor3 = FromRGB(255, 255, 255),
 					TextTransparency = 0.4000000059604645,
-					Text = Name .. " [" .. Key .. "]",
+					Text = Name .. " [" .. Key .. "] [" .. Mode .. "]",
 					Size = UDim2New(0, 0, 0, 15),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -2696,8 +2696,8 @@ do
 				})
 				NewKey:AddToTheme({ TextColor3 = "Text" })
 
-				function NewKey:SetText(Name, Key)
-					NewKey.Instance.Text = Name .. " [" .. Key .. "]"
+				function NewKey:SetText(Name, Key, Mode)
+					NewKey.Instance.Text = Name .. " [" .. Key .. "] [" .. Mode .. "]"
 				end
 
 				function NewKey:SetStatus(Bool)
@@ -4236,7 +4236,7 @@ do
 					Name = "\0",
 					BackgroundTransparency = 1,
 					BorderColor3 = FromRGB(0, 0, 0),
-					Size = UDim2New(1, 0, 0, 35),
+					Size = UDim2New(1, 0, 0, 25),
 					BorderSizePixel = 0,
 					BackgroundColor3 = FromRGB(255, 255, 255),
 				})
@@ -4249,7 +4249,7 @@ do
 					BorderColor3 = FromRGB(0, 0, 0),
 					Text = Slider.Name,
 					BackgroundTransparency = 1,
-					Size = UDim2New(0, 0, 0, 25),
+					Size = UDim2New(0, 0, 0, 10),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.X,
 					TextSize = 9,
@@ -4301,7 +4301,7 @@ do
 					TextTransparency = 0.5,
 					AnchorPoint = Vector2New(1, 0),
 					TextSize = 9,
-					Size = UDim2New(0, 0, 0, 25),
+					Size = UDim2New(0, 0, 0, 10),
 					TextColor3 = FromRGB(255, 255, 255),
 					BorderColor3 = FromRGB(0, 0, 0),
 					Text = "50s",
@@ -4432,7 +4432,7 @@ do
 					Parent = Dropdown.Section.Items["Content"].Instance,
 					Name = "\0",
 					BackgroundTransparency = 1,
-					Size = UDim2New(1, 0, 0, 40),
+					Size = UDim2New(1, 0, 0, 35),
 					BorderColor3 = FromRGB(0, 0, 0),
 					ZIndex = 2,
 					BorderSizePixel = 0,
@@ -4447,7 +4447,7 @@ do
 					BorderColor3 = FromRGB(0, 0, 0),
 					Text = Dropdown.Name,
 					BackgroundTransparency = 1,
-					Size = UDim2New(0, 0, 0, 15),
+					Size = UDim2New(0, 0, 0, 10),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.X,
 					TextSize = 9,
@@ -5386,105 +5386,6 @@ do
 		end
 	end
 end
-
-
--- local Window = Library:Window({Name = "Window", Logo = "rbxassetid://90363697817722"})
--- local Watermark = Library:Watermark("This is a watermark")
--- local KeybindList = Library:KeybindList()
-
--- local ArmorViewer = Library:ArmorViewer()
--- local TargetHud = Library:TargetHud()
-
--- TargetHud:SetPlayer(game.Players.LocalPlayer)
-
--- local Bar1 = TargetHud:AddBar(Color3.fromRGB(255, 0, 0))
-
--- task.spawn(function()
---     while task.wait(1.5) do
---         Bar1:SetPercentage(math.random(1, 100))
---     end
--- end)
-
--- local CombatPage = Window:Page({Name = "Combat", Columns = 2})
--- local VisualsPage = Window:Page({Name = "Visuals", Columns = 2})
--- local MiscPage = Window:Page({Name = "Misc", Columns = 2})
--- local SettingsPage = Library:CreateSettingsPage(Window, KeybindList, Watermark)
-
--- local AimbotSection = CombatPage:Section({Name = "Aimbot", Side = 1})
--- local VisualsSection = VisualsPage:Section({Name = "Visuals", Side = 1})
--- local MiscSection = MiscPage:Section({Name = "Misc", Side = 1})
-
--- local Toggle = AimbotSection:Toggle({
---     Name = "Enabled",
---     Flag = "AimbotEnabled",
---     Default = false,
---     Callback = function(Value)
---         print(Value)
---     end
--- })
-
--- local Button = AimbotSection:Button({
---     Name = "Button",
---     Callback = function()
---         print("Button Pressed")
---     end
--- })
-
--- local Slider = AimbotSection:Slider({
---     Name = "Slider",
---     Flag = "Slider",
---     Min = 0,
---     Default = 0,
---     Max = 100,
---     Suffix = "%",
---     Decimals = 1,
---     Callback = function(Value)
---         print(Value)
---     end
--- })
-
--- local Dropdown = AimbotSection:Dropdown({
---     Name = "Dropdown",
---     Flag = "Dropdown",
---     Default = "Option 1",
---     Items = {"Option 1", "Option 2", "Option 3"},
---     MaxSize = 100,
---     Callback = function(Value)
---         print(Value)
---     end
--- })
-
--- AimbotSection:Label("Colorpicker"):Colorpicker({
---     Name = "Colorpicker",
---     Flag = "Colorpicker",
---     Default = Color3.fromRGB(255, 255, 255),
---     Callback = function(Value)
---         print(Value)
---     end
--- })
-
--- AimbotSection:Label("Keybind"):Keybind({
---     Name = "Keybind",
---     Flag = "Keybind",
---     Default = Enum.UserInputType.MouseButton2,
---     Mode = "Toggle",
---     Callback = function(Value)
---         print(Value)
---     end
--- })
-
--- AimbotSection:Textbox({
---     Name = "Textbox",
---     Placeholder = "...",
---     Numeric = false,
---     Finished = false,
---     Flag = "Textbox",
---     Callback = function(Value)
---         print(Value)
---     end
--- })
-
--- Library:Notification("this is a notification", 5)
 
 getgenv().Library = Library
 return Library 
